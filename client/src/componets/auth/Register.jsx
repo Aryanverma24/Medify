@@ -1,30 +1,53 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link , useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-   const navigate = useNavigate();
-
-  const handleRegister = (e) => {
+  const navigate = useNavigate();
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    //  Optional basic validation
     if (password !== confirmPassword) {
       alert("Passwords do not match");
       return;
     }
 
-    //  Fake register
-    localStorage.setItem("token", "dummy_token");
+    try {
 
-    // redirect to dashboard
-    navigate("/");
+      const response = await axios.post(
+        `${API_BASE_URL}/user/register`,
+        {
+          fullName: name,
+          email: email,
+          password: password,
+        }
+      );
+
+      localStorage.setItem("token", response.data.token);
+      alert("Registration successful");
+      navigate("/onboarding");
+
+    } catch (error) {
+      console.log(error);
+      if (error.response?.data) {
+        alert(error.response.data);
+      } else {
+        alert("Registration failed");
+      }
+    }
   };
+
+  const handleGoogleLogin = () => {
+    window.location.href = `${API_BASE_URL}/oauth2/authorization/google`
+  }
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-white to-emerald-50 px-4">
@@ -105,9 +128,21 @@ export default function Register() {
 
         {/* Social Signup */}
         <div className="space-y-3">
-          <button className="w-full py-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition">
-            Sign up with Google
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="w-full py-3 rounded-full border border-gray-300
+                           flex items-center justify-center gap-2
+                           hover:bg-gray-50 transition"
+          >
+            <img
+              src="https://developers.google.com/identity/images/g-logo.png"
+              alt="google"
+              className="w-5 h-5"
+            />
+            Continue with Google
           </button>
+
         </div>
 
         {/* Footer */}

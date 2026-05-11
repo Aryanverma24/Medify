@@ -19,6 +19,7 @@ import {
   Pause,
   Menu,
   X,
+  MessageCircle,
   Waves,
 } from "lucide-react";
 
@@ -39,7 +40,7 @@ export default function MainLayout() {
   const navItems = [
     {
       name: "Home",
-      path: "/",
+      path: "/home",
       icon: Home,
     },
     {
@@ -62,6 +63,11 @@ export default function MainLayout() {
       path: "/emotional-analytics",
       icon: Brain,
     },
+    {
+      name: "Support",
+      path: "/support",
+      icon: MessageCircle,
+    }
   ];
 
   return (
@@ -305,77 +311,80 @@ export default function MainLayout() {
         </div>
 
         {/* MUSIC PLAYER */}
-        <footer
-          className="
-            h-auto lg:h-[90px]
-            border-t border-emerald-100
-            bg-white/80 backdrop-blur-2xl
-            px-4 sm:px-6
-            py-4
-            flex flex-col lg:flex-row
-            items-center justify-between
-            gap-4
-          "
-        >
-          
-          {/* TRACK */}
-          <div className="flex items-center gap-4 w-full lg:w-auto">
-            <img
-              src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop"
-              alt="track"
-              className="w-14 h-14 rounded-2xl object-cover"
-            />
-
-            <div>
-              <h3 className="font-semibold text-gray-800">
-                Deep Meditation
-              </h3>
-
-              <p className="text-sm text-gray-500">
-                Relaxing Healing Sounds
-              </p>
-            </div>
-          </div>
-
-          {/* CONTROLS */}
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() =>
-                setIsPlaying(!isPlaying)
-              }
-              className="
-                w-14 h-14
-                rounded-full
-                bg-gradient-to-r from-emerald-500 to-teal-500
-                text-white
-                flex items-center justify-center
-                shadow-lg
-                hover:scale-105
-                transition-all duration-300
-              "
-            >
-              {isPlaying ? (
-                <Pause fill="white" />
-              ) : (
-                <Play fill="white" />
-              )}
-            </button>
-          </div>
-
-          {/* PROGRESS */}
-          <div className="w-full lg:w-[300px]">
-            <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-              <div className="w-[45%] h-full bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full"></div>
-            </div>
-
-            <div className="flex justify-between text-xs text-gray-500 mt-2">
-              <span>1:42</span>
-
-              <span>5:24</span>
-            </div>
-          </div>
-        </footer>
+      
       </main>
     </div>
   );
 }
+
+
+  // <footer
+  //         className="
+  //           h-auto lg:h-[90px]
+  //           border-t border-emerald-100
+  //           bg-white/80 backdrop-blur-2xl
+  //           px-4 sm:px-6
+  //           py-4
+  //           flex flex-col lg:flex-row
+  //           items-center justify-between
+  //           gap-4
+  //         "
+  //       >
+          
+  //         {/* TRACK */}
+  //         <div className="flex items-center gap-4 w-full lg:w-auto">
+  //           <img
+  //             src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop"
+  //             alt="track"
+  //             className="w-14 h-14 rounded-2xl object-cover"
+  //           />
+
+  //           <div>
+  //             <h3 className="font-semibold text-gray-800">
+  //               Deep Meditation
+  //             </h3>
+
+  //             <p className="text-sm text-gray-500">
+  //               Relaxing Healing Sounds
+  //             </p>
+  //           </div>
+  //         </div>
+
+  //         {/* CONTROLS */}
+  //         <div className="flex items-center gap-4">
+  //           <button
+  //             onClick={() =>
+  //               setIsPlaying(!isPlaying)
+  //             }
+  //             className="
+  //               w-14 h-14
+  //               rounded-full
+  //               bg-gradient-to-r from-emerald-500 to-teal-500
+  //               text-white
+  //               flex items-center justify-center
+  //               shadow-lg
+  //               hover:scale-105
+  //               transition-all duration-300
+  //             "
+  //           >
+  //             {isPlaying ? (
+  //               <Pause fill="white" />
+  //             ) : (
+  //               <Play fill="white" />
+  //             )}
+  //           </button>
+  //         </div>
+
+  //         {/* PROGRESS */}
+  //         <div className="w-full lg:w-[300px]">
+  //           <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+  //             <div className="w-[45%] h-full bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full"></div>
+  //           </div>
+
+  //           <div className="flex justify-between text-xs text-gray-500 mt-2">
+  //             <span>1:42</span>
+
+  //             <span>5:24</span>
+  //           </div>
+  //         </div>
+  //       </footer>

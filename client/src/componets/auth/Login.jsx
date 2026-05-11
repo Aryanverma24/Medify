@@ -2,23 +2,42 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link , useNavigate} from "react-router-dom";
 
+import axios from "axios";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
    const navigate = useNavigate();
 
-//   update later when backend is ready
- const handleLogin = (e) => {
-    e.preventDefault();
+const handleLogin = async (e) => {
+  e.preventDefault();
 
-    //  Fake login (no backend)
-    localStorage.setItem("token", "dummy_token");
+  try {
+    const response = await axios.post(
+      console.log("API Base URL:", API_BASE_URL) ||
+       `${API_BASE_URL}/auth/login`,
+      {
+        email,
+        password,
+      }
+    );
 
-    // redirect to dashboard
-    navigate("/");
-  };
+    console.log(response.data);
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("email", response.data.email);
+    navigate("/home");
+    }catch (err) {
+    console.log(err.response?.data || err.message);
+      alert("Login failed. Please check your credentials.");
+  }
+};
 
-
+   const handleGoogleLogin = () => {
+    console.log("API Base URL:", API_BASE_URL);
+    window.location.href = `${API_BASE_URL}/oauth2/authorization/google`
+  }
 
 
   return (
@@ -86,12 +105,20 @@ export default function Login() {
           <div className="flex-1 h-px bg-gray-200" />
         </div>
 
-        {/* Social Login */}
-        <div className="space-y-3">
-          <button className="w-full py-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition">
-            Continue with Google
-          </button>
-        </div>
+       <button
+                type="button"
+                onClick={handleGoogleLogin}
+                className="w-full py-3 rounded-full border border-gray-300
+                           flex items-center justify-center gap-2
+                           hover:bg-gray-50 transition"
+              >
+                <img
+                  src="https://developers.google.com/identity/images/g-logo.png"
+                  alt="google"
+                  className="w-5 h-5"
+                />
+                Continue with Google
+              </button>
 
         {/* Footer */}
         <p className="text-center text-sm text-gray-500 mt-6">
