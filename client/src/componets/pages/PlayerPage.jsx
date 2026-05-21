@@ -9,14 +9,18 @@ import {
   Heart,
   Repeat,
   Shuffle,
+  X,
 } from "lucide-react";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const PlayerPage = () => {
+const PlayerModal = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const { track, tracks } = location.state;
+  // SAFE DATA
+  const track = location.state?.track || null;
+  const tracks = location.state?.tracks || [];
 
   const [currentTrack, setCurrentTrack] = useState(track);
 
@@ -27,6 +31,31 @@ const PlayerPage = () => {
   const [volume, setVolume] = useState(70);
 
   const audioRef = useRef(null);
+
+  // CLOSE MODAL
+  const closeModal = () => {
+    navigate(-1);
+  };
+
+  // SAFETY CHECK
+  if (!currentTrack) {
+    return (
+      <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center">
+        <div className="bg-white p-8 rounded-3xl">
+          <h2 className="text-2xl font-bold text-gray-800">
+            No Track Selected
+          </h2>
+
+          <button
+            onClick={closeModal}
+            className="mt-5 px-5 py-3 bg-emerald-500 text-white rounded-2xl"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   // PLAY / PAUSE
   const togglePlay = async () => {
@@ -44,6 +73,8 @@ const PlayerPage = () => {
   // UPDATE PROGRESS
   useEffect(() => {
     const audio = audioRef.current;
+
+    if (!audio) return;
 
     const updateProgress = () => {
       const current =
@@ -67,6 +98,8 @@ const PlayerPage = () => {
 
   // NEXT TRACK
   const handleNext = () => {
+    if (!tracks.length) return;
+
     const currentIndex = tracks.findIndex(
       (t) => t.id === currentTrack.id
     );
@@ -75,12 +108,13 @@ const PlayerPage = () => {
       tracks[(currentIndex + 1) % tracks.length];
 
     setCurrentTrack(nextTrack);
-
     setIsPlaying(true);
   };
 
   // PREVIOUS TRACK
   const handlePrev = () => {
+    if (!tracks.length) return;
+
     const currentIndex = tracks.findIndex(
       (t) => t.id === currentTrack.id
     );
@@ -92,7 +126,6 @@ const PlayerPage = () => {
       ];
 
     setCurrentTrack(prevTrack);
-
     setIsPlaying(true);
   };
 
@@ -111,17 +144,30 @@ const PlayerPage = () => {
   }, [volume]);
 
   return (
-    <div className="min-h-screen bg-[#f5f7fb] flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-7xl bg-white rounded-[40px] shadow-xl overflow-hidden grid lg:grid-cols-2">
+    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center px-4 py-6">
+      
+      {/* MODAL */}
+      <div className="relative w-full max-w-7xl bg-white rounded-[40px] shadow-2xl overflow-hidden grid lg:grid-cols-2 animate-in fade-in zoom-in duration-300">
         
+        {/* CLOSE BUTTON */}
+        <button
+          onClick={closeModal}
+          className="absolute top-5 right-5 z-50 w-12 h-12 rounded-full bg-white/90 hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center justify-center shadow-lg"
+        >
+          <X size={24} />
+        </button>
+
         {/* LEFT */}
-        <div className="relative bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-400 p-10 flex items-center justify-center">
+        <div className="relative bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-400 p-10 flex items-center justify-center min-h-[500px]">
           
           <div className="absolute w-[500px] h-[500px] rounded-full bg-white/20 blur-3xl"></div>
 
           <img
-            src={currentTrack.audioThumbnail}
-            alt={currentTrack.title}
+            src={
+              currentTrack?.audioThumbnail ||
+              "https://via.placeholder.com/400"
+            }
+            alt={currentTrack?.title}
             className="relative z-10 w-[380px] h-[380px] rounded-[40px] object-cover shadow-2xl"
           />
         </div>
@@ -136,7 +182,7 @@ const PlayerPage = () => {
             </p>
 
             <h1 className="text-5xl font-bold text-gray-900 mt-6 leading-tight">
-              {currentTrack.title}
+              {currentTrack?.title}
             </h1>
 
             <p className="text-gray-500 text-lg mt-4">
@@ -161,7 +207,7 @@ const PlayerPage = () => {
             </div>
           </div>
 
-          {/* PLAYER CONTROLS */}
+          {/* CONTROLS */}
           <div className="mt-10">
             
             {/* PROGRESS */}
@@ -175,7 +221,7 @@ const PlayerPage = () => {
 
               <div className="flex justify-between text-sm text-gray-500 mt-2">
                 <span>0:00</span>
-                <span>{currentTrack.duration}</span>
+                <span>{currentTrack?.duration}</span>
               </div>
             </div>
 
@@ -245,7 +291,7 @@ const PlayerPage = () => {
           {/* AUDIO */}
           <audio
             ref={audioRef}
-            src={currentTrack.audioUrl}
+            src={currentTrack?.audioUrl}
           />
         </div>
       </div>
@@ -253,4 +299,4 @@ const PlayerPage = () => {
   );
 };
 
-export default PlayerPage;
+export default PlayerModal;

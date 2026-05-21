@@ -23,6 +23,21 @@ import {
   Waves,
 } from "lucide-react";
 
+const token = localStorage.getItem("token");
+
+let payload = {};
+
+try {
+  if (token) {
+    payload = JSON.parse(
+      atob(token.split(".")[1])
+    );
+    console.log("User Payload:", payload);
+  }
+} catch (error) {
+  console.log("Invalid token");
+}
+
 export default function MainLayout() {
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -295,11 +310,11 @@ export default function MainLayout() {
 
             <div className="hidden sm:block text-left">
               <h4 className="text-sm font-semibold text-gray-800">
-                Aryan
+                {payload.name || "User"}
               </h4>
 
               <p className="text-xs text-gray-500">
-                Premium User
+                {payload.role || "User"}
               </p>
             </div>
           </button>
