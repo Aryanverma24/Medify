@@ -44,6 +44,12 @@ const Home = () => {
   return (
     <div className="space-y-8 pb-10">
       <div>
+       <TrackRow 
+          title="Recommendation Journey"
+          data={quickTracks}
+          onTrackClick={handleTrackClick}
+       />
+
         <h2 className="text-2xl font-bold text-gray-800 mb-4">
           Continue Journey
         </h2>
@@ -60,6 +66,7 @@ const Home = () => {
               title={lib.subjects[0].title}
               data={lib.subjects[0].tracks}
               onTrackClick={handleTrackClick}
+              className="mb-8"
             />
           )
       )}

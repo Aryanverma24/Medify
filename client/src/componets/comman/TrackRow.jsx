@@ -14,12 +14,12 @@ const TrackRow = ({ title, data, onTrackClick }) => {
         </button>
       </div>
 
-      <div className="flex gap-5 overflow-x-auto scrollbar-hide pb-2">
+  <div className="flex gap-5 overflow-x-auto custom-scrollbar pb-2">
         {data.map((track) => (
           <div
             key={track.id}
             onClick={() => onTrackClick(track)}
-            className="min-w-[240px] bg-white rounded-[28px] p-3 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 cursor-pointer group"
+            className="min-w-[240px] bg-white rounded-[28px] p-3 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 cursor-pointer group mb-4"
           >
             {/* IMAGE */}
             <div className="relative overflow-hidden rounded-[24px]">

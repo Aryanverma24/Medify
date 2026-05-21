@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link , useNavigate} from "react-router-dom";
-
+import toast from "react-hot-toast";
 import axios from "axios";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -30,14 +30,13 @@ const handleLogin = async (e) => {
     navigate("/home");
     }catch (err) {
     console.log(err.response?.data || err.message);
-      alert("Login failed. Please check your credentials.");
+      toast.error("Login failed. Please check your credentials.");
   }
 };
 
-   const handleGoogleLogin = () => {
-    console.log("API Base URL:", API_BASE_URL);
-    window.location.href = `${API_BASE_URL}/oauth2/authorization/google`
-  }
+  const handleGoogleLogin = () => {
+  window.location.href = "http://localhost:8080/oauth2/authorization/google";
+};
 
 
   return (

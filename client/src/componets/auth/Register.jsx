@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -15,7 +16,7 @@ export default function Register() {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -27,26 +28,26 @@ export default function Register() {
           fullName: name,
           email: email,
           password: password,
-        }
+        },
       );
 
       localStorage.setItem("token", response.data.token);
-      alert("Registration successful");
+      toast.success("Registration successful");
       navigate("/onboarding");
 
     } catch (error) {
       console.log(error);
       if (error.response?.data) {
-        alert(error.response.data);
+        toast.error(error.response.data);
       } else {
-        alert("Registration failed");
+        toast.error("Registration failed");
       }
     }
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = `${API_BASE_URL}/oauth2/authorization/google`
-  }
+const handleGoogleLogin = () => {
+  window.location.href = "http://localhost:8080/oauth2/authorization/google";
+};
 
 
   return (
