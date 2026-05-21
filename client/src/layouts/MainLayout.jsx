@@ -5,7 +5,7 @@ import {
   useLocation,
 } from "react-router-dom";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 import {
   Home,
@@ -23,22 +23,31 @@ import {
   Waves,
 } from "lucide-react";
 
-const token = localStorage.getItem("token");
 
-let payload = {};
 
-try {
-  if (token) {
-    payload = JSON.parse(
-      atob(token.split(".")[1])
-    );
-    console.log("User Payload:", payload);
-  }
-} catch (error) {
-  console.log("Invalid token");
-}
 
 export default function MainLayout() {
+
+   const [payload, setPayload] = useState({});
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      try {
+        const decoded = JSON.parse(
+          atob(token.split(".")[1])
+        );
+
+        setPayload(decoded);
+
+        console.log("User Payload:", decoded);
+      } catch (error) {
+        console.log("Invalid token");
+      }
+    }
+  }, []);
+
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [sidebarOpen, setSidebarOpen] =

@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useEffect, useState} from "react";
 import {
   Settings,
   Bell,
@@ -12,21 +12,6 @@ import {
 } from "lucide-react";
 import EmotionalAnalyticsDashboard from "./EmotionalAnaltics";
 
-
-const token = localStorage.getItem("token");
-
-let payload = {};
-
-try {
-  if (token) {
-    payload = JSON.parse(
-      atob(token.split(".")[1])
-    );
-    console.log("User Payload:", payload);
-  }
-} catch (error) {
-  console.log("Invalid token");
-}
 
 const recentTracks = [
   {
@@ -94,6 +79,27 @@ const stats = [
 ];
 
 const UserProfilePage = () => {
+
+   const [payload, setPayload] = useState({});
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      try {
+        const decoded = JSON.parse(
+          atob(token.split(".")[1])
+        );
+
+        setPayload(decoded);
+
+        console.log("User Payload:", decoded);
+      } catch (error) {
+        console.log("Invalid token");
+      }
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#f7f8fc] px-4 md:px-8 py-6 text-gray-900">
       <div className="max-w-7xl mx-auto">
@@ -115,7 +121,7 @@ const UserProfilePage = () => {
               <div>
                 <div className="flex items-center gap-2">
                   <h1 className="text-3xl md:text-4xl font-bold">
-                   {payload.name}
+                   {payload?.name}
                   </h1>
 
                   <BadgeCheck
