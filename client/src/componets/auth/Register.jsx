@@ -33,6 +33,7 @@ export default function Register() {
 
       localStorage.setItem("token", response.data.token);
       toast.success("Registration successful");
+      localStorage.setItem("hasCompletedOnboarding", "false");
       navigate("/onboarding");
 
     } catch (error) {
@@ -46,7 +47,13 @@ export default function Register() {
   };
 
 const handleGoogleLogin = () => {
-  window.location.href = "http://localhost:8080/oauth2/authorization/google";
+  try {
+    window.location.href = `${API_BASE_URL}/oauth2/authorization/google`;
+    localStorage.setItem("hasCompletedOnboarding", "true");
+    } catch (error) {
+    console.log(error);
+    toast.error("Google login failed. Please try again.");
+  }
 };
 
 
