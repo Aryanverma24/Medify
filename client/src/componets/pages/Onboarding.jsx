@@ -83,7 +83,7 @@ export default function Onboarding() {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      localStorage.setItem("hasCompletedOnboarding","true");
       navigate("/home");
     } catch (error) {
       console.log(error);

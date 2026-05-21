@@ -47,7 +47,9 @@ export default function SetPassword() {
       });
 
       localStorage.setItem("token", res.data.token);
+       localStorage.setItem("hasCompletedOnboarding", "false");
       navigate("/onboarding");
+     
       toast.success("Password set successfully");
     } catch (err) {
       console.log(err.response?.data || err.message);

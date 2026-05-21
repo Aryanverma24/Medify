@@ -16,6 +16,7 @@ import SetPassword from '../componets/auth/SetPassword';
 import OAuthSuccess from '../componets/OAuthSuccess';
 import Onboarding from '../componets/pages/Onboarding';
 import Support from "../componets/chatBot/Support"
+import OnboardingRoute from '../componets/pages/OnboardingRoute';
 
 const AppRoutes = () => {
   return (
@@ -36,7 +37,14 @@ const AppRoutes = () => {
             </ProtectedRoute>
           }
         >
-          <Route path="onboarding" element={<Onboarding />} />
+          <Route
+            path="onboarding"
+            element={
+              <OnboardingRoute>
+                <Onboarding />
+              </OnboardingRoute>
+            }
+          />
           <Route path="/home" element={<Home />} />
           <Route path="search" element={<Search />} />
           <Route path="library" element={<Library />} />

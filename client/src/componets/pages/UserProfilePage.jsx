@@ -12,6 +12,22 @@ import {
 } from "lucide-react";
 import EmotionalAnalyticsDashboard from "./EmotionalAnaltics";
 
+
+const token = localStorage.getItem("token");
+
+let payload = {};
+
+try {
+  if (token) {
+    payload = JSON.parse(
+      atob(token.split(".")[1])
+    );
+    console.log("User Payload:", payload);
+  }
+} catch (error) {
+  console.log("Invalid token");
+}
+
 const recentTracks = [
   {
     id: 1,
@@ -88,7 +104,7 @@ const UserProfilePage = () => {
             <div className="flex flex-col sm:flex-row sm:items-center gap-6">
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop"
+                 src={`https://ui-avatars.com/api/?name=${payload?.name || "User"}&background=10b981&color=fff`}
                   alt="Profile"
                   className="w-32 h-32 rounded-full object-cover border-4 border-emerald-100"
                 />
@@ -99,7 +115,7 @@ const UserProfilePage = () => {
               <div>
                 <div className="flex items-center gap-2">
                   <h1 className="text-3xl md:text-4xl font-bold">
-                    Aryan Verma
+                   {payload.name}
                   </h1>
 
                   <BadgeCheck
