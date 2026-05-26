@@ -1,15 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import data from "../../data/MedifyData.json"
+import data from "../../../data/MedifyData.json"
 
-import ContinueRow from "../comman/ContinueRaw"
-import SwiperRow from "../comman/SwiperRow"
-import TrackRow from '../../componets/comman/TrackRow';
-import CategorySection from "../comman/CategorySection"
+import ContinueRow from "../../comman/ContinueRaw"
+import SwiperRow from "../../comman/SwiperRow"
+import TrackRow from '../../comman/TrackRow';
+import CategorySection from "../../comman/CategorySection"
+import HomeSection from "./HeroSection";
+import HealingProgressCard from "./HealingProgressCard";
+import MoodTrackerCard from "./MoodTrackerCard";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import StreakCard from "./StreakCard";
+import DailyRecommendationCard from "./DailyRecomendation";
+import ContinueHealingSlider from "./ContinueHealing";
+import RecommendedForYou from "./RecomendedForYou";
+import TopLibraries from "./TopLibraries";
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -42,9 +51,33 @@ const Home = () => {
   };
 
   return (
-    <div className="space-y-8 pb-10">
-      <div>
-       <TrackRow 
+    <div className="space-y-8 pb-10 w-full">
+
+  <div className="flex justify-center flex-col md:flex-row gap-6 mb-8 w-full">
+  
+  <div className="relative min-h-screen flex flex-col gap-6 max-w-[72%]">
+
+    <HomeSection user={{ name: "John" }} />
+    <ContinueHealingSlider  />  
+    <RecommendedForYou />
+    <TopLibraries />
+    </div>
+
+
+  <div className="h-full flex flex-wrap gap-4 max-w-[300px]">
+
+    <HealingProgressCard progress={78} />
+    <MoodTrackerCard />
+    <StreakCard streak={5} />
+    <DailyRecommendationCard />
+
+    <HealingProgressCard progress={78} />
+
+  </div>
+
+</div>
+
+       {/* <TrackRow 
           title="Recommendation Journey"
           data={quickTracks}
           onTrackClick={handleTrackClick}
@@ -55,10 +88,10 @@ const Home = () => {
         </h2>
 
         <ContinueRow />
-      </div>
+      </div> */}
 
       {/* SWIPER ROWS */}
-      {libraries.slice(1).map(
+      {/* {libraries.slice(1).map(
         (lib) =>
           lib.subjects.length > 0 && (
             <SwiperRow
@@ -69,23 +102,24 @@ const Home = () => {
               className="mb-8"
             />
           )
-      )}
+      )} */}
 
       {/* QUICK TRACKS */}
-      <TrackRow
+      {/* <TrackRow
         title="Quick Start"
         data={quickTracks}
         onTrackClick={handleTrackClick}
       />
+ */}
 
       {/* TRENDING */}
-      <TrackRow
+      {/* <TrackRow
         title="Trending Tracks"
         data={trendingTracks}
         onTrackClick={handleTrackClick}
-      />
+      /> */}
 
-      <CategorySection />
+      {/* <CategorySection /> */}
     </div>
   );
 };
