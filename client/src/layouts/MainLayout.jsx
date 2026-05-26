@@ -3,10 +3,10 @@ import {
   Outlet,
   useNavigate,
   useLocation,
+  Link
 } from "react-router-dom";
 
-
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 
 import {
@@ -17,8 +17,6 @@ import {
   Brain,
   User,
   LogOut,
-  Play,
-  Pause,
   Menu,
   X,
   MessageCircle,
@@ -27,12 +25,21 @@ import {
   Moon
 } from "lucide-react";
 
-
-
-
 export default function MainLayout() {
+  const [payload, setPayload] = useState({});
 
-   const [payload, setPayload] = useState({});
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const [sidebarOpen, setSidebarOpen] =
+    useState(false);
+
+  // NEW
+  const [collapsed, setCollapsed] =
+    useState(false);
+
+  const location = useLocation();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -52,15 +59,6 @@ export default function MainLayout() {
     }
   }, []);
 
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const [sidebarOpen, setSidebarOpen] =
-    useState(false);
-
-  const location = useLocation();
-
-  const navigate = useNavigate();
-
   const handleClick = () => {
     navigate("/my-profile");
   };
@@ -68,7 +66,7 @@ export default function MainLayout() {
   const navItems = [
     {
       name: "Home",
-      path: "/home",
+      path: "/",
       icon: Home,
     },
     {
@@ -95,7 +93,7 @@ export default function MainLayout() {
       name: "Support",
       path: "/support",
       icon: MessageCircle,
-    }
+    },
   ];
 
   return (
@@ -114,7 +112,11 @@ export default function MainLayout() {
         className={`
           fixed lg:static top-0 left-0 z-50
           h-full
-          w-[280px]
+          ${
+            collapsed
+              ? "w-[90px]"
+              : "w-[240px]"
+          }
           bg-white/80 backdrop-blur-2xl
           border-r border-emerald-100
           p-5
@@ -133,31 +135,66 @@ export default function MainLayout() {
           
           {/* LOGO */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center text-white shadow-lg">
-                <Waves size={24} />
-              </div>
-
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">
-                  Medify
-                </h1>
-
-                <p className="text-xs text-gray-500">
-                  Healing Platform
-                </p>
-              </div>
-            </div>
-
-            {/* CLOSE BTN */}
-            <button
-              onClick={() =>
-                setSidebarOpen(false)
-              }
-              className="lg:hidden"
+            
+            {!collapsed && (
+            <div
+              className={`flex items-center ${
+                collapsed ? "justify-center w-full" : "gap-3"
+              }`}
             >
-              <X />
-            </button>
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center text-white shadow-lg flex-shrink-0">
+                < Waves size={24} />
+              </div>
+
+                <div>
+                  <h1 className="text-2xl font-bold text-gray-900">
+                    Medify
+                  </h1>
+
+                  <p className="text-xs text-gray-500">
+                    Healing Platform
+                  </p>
+                </div>
+            </div>
+              )}
+
+            {/* RIGHT BUTTONS */}
+            <div className="flex items-center gap-2">
+              
+              {/* MOBILE CLOSE */}
+              <button
+                onClick={() =>
+                  setSidebarOpen(false)
+                }
+                className="lg:hidden"
+              >
+                <X />
+              </button>
+
+              {/* DESKTOP TOGGLE */}
+              <button
+                onClick={() =>
+                  setCollapsed(!collapsed)
+                }
+                className="
+                  hidden lg:flex
+                  w-10 h-10
+                  rounded-xl
+                  bg-emerald-50
+                  items-center
+                  justify-center
+                  hover:bg-emerald-100
+                  transition-all duration-300
+                  flex-shrink-0
+                "
+              >
+                {collapsed ? (
+                  <Menu size={18} />
+                ) : (
+                  <X size={18} />
+                )}
+              </button>
+            </div>
           </div>
 
           {/* NAVIGATION */}
@@ -174,7 +211,12 @@ export default function MainLayout() {
                   }
                   className={({ isActive }) =>
                     `
-                    flex items-center gap-4
+                    flex items-center
+                    ${
+                      collapsed
+                        ? "justify-center"
+                        : "gap-4"
+                    }
                     px-4 py-4 rounded-2xl
                     transition-all duration-300
                     group
@@ -188,9 +230,11 @@ export default function MainLayout() {
                 >
                   <Icon size={22} />
 
-                  <span className="font-medium">
-                    {item.name}
-                  </span>
+                  {!collapsed && (
+                    <span className="font-medium">
+                      {item.name}
+                    </span>
+                  )}
                 </NavLink>
               );
             })}
@@ -201,20 +245,22 @@ export default function MainLayout() {
         <div className="space-y-4">
           
           {/* PREMIUM CARD */}
-          <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-[28px] p-5 text-white">
-            <h3 className="font-bold text-lg">
-              Medify Premium
-            </h3>
+          {!collapsed && (
+            <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-[28px] p-5 text-white">
+              <h3 className="font-bold text-lg">
+                Medify Premium
+              </h3>
 
-            <p className="text-sm text-white/80 mt-2">
-              Unlock unlimited healing tracks and
-              emotional insights.
-            </p>
+              <p className="text-sm text-white/80 mt-2">
+                Unlock unlimited healing tracks
+                and emotional insights.
+              </p>
 
-            <button className="mt-4 bg-white text-emerald-600 px-4 py-2 rounded-full text-sm font-semibold hover:scale-105 transition-all duration-300">
-              Upgrade
-            </button>
-          </div>
+              <button className="mt-4 bg-white text-emerald-600 px-4 py-2 rounded-full text-sm font-semibold hover:scale-105 transition-all duration-300">
+                Upgrade
+              </button>
+            </div>
+          )}
 
           {/* LOGOUT */}
           <button
@@ -224,11 +270,20 @@ export default function MainLayout() {
               window.location.href =
                 "/auth/login";
             }}
-            className="flex items-center gap-3 text-red-500 hover:text-red-600 transition-all duration-300"
+            className={`
+              flex items-center
+              ${
+                collapsed
+                  ? "justify-center w-full"
+                  : "gap-3"
+              }
+              text-red-500 hover:text-red-600
+              transition-all duration-300
+            `}
           >
             <LogOut size={18} />
 
-            Logout
+            {!collapsed && "Logout"}
           </button>
         </div>
       </aside>
@@ -237,10 +292,24 @@ export default function MainLayout() {
       <main className="flex-1 flex flex-col overflow-hidden">
         
         {/* TOPBAR */}
-        <header className="h-[75px] px-4 sm:px-6 border-b border-emerald-100 bg-white/70 backdrop-blur-xl flex items-center justify-between">
+        <header className="h-[70px] px-4 border-b border-emerald-100 bg-white/70 backdrop-blur-xl flex items-center w-full justify-between">
           
           {/* LEFT */}
           <div className="flex items-center gap-4">
+
+
+            <div
+              className={`flex items-center ${
+                collapsed ? "justify-center w-full" : "gap-3"
+              }`}
+            >
+                <Link to="/" className="flex items-center gap-3">
+                  <h1 className="text-greenbase font-season-medium font-smbold heading-large">
+                    Avyakt Ehsaas
+                  </h1>
+
+                </Link>
+            </div>
             
             {/* MOBILE MENU */}
             <button
@@ -251,22 +320,12 @@ export default function MainLayout() {
             >
               <Menu />
             </button>
-
-            <div>
-              <h2 className="text-lg sm:text-2xl font-bold text-gray-800">
-                Good Evening 🌿
-              </h2>
-
-              <p className="text-sm text-gray-500 hidden sm:block">
-                Welcome back to your wellness
-                journey
-              </p>
-            </div>
           </div>
 
           {/* SEARCH */}
           <div className="hidden md:flex flex-1 max-w-xl mx-8">
-            {location.pathname === "/search" ? (
+            {location.pathname ===
+            "/search" ? (
               <input
                 type="text"
                 placeholder="Search audio, playlist and library..."
@@ -323,11 +382,11 @@ export default function MainLayout() {
 
             <div className="hidden sm:block text-left">
               <h4 className="text-sm font-semibold text-gray-800">
-                {payload.name || "User"}
+                {payload?.name || "User"}
               </h4>
 
               <p className="text-xs text-gray-500">
-                {payload.role || "User"}
+                {payload?.role || "User"}
               </p>
             </div>
           </button>
@@ -339,7 +398,6 @@ export default function MainLayout() {
         </div>
 
         {/* MUSIC PLAYER */}
-      
       </main>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Routes, Route } from "react-router-dom";
 import Login from '../componets/auth/Login';
-import Home from '../componets/pages/Home';
+import Home from '../componets/pages/Home/Home';
 import Register from '../componets/auth/Register';
 import ProtectedRoute from './ProtectedRoutes';
 import Search from '../componets/pages/Search';
@@ -45,7 +45,7 @@ const AppRoutes = () => {
               </OnboardingRoute>
             }
           />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="search" element={<Search />} />
           <Route path="library" element={<Library />} />
           <Route path="profile" element={<Profile />} />
