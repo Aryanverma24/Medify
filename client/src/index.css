@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* CUSTOM GREEN SCROLLBAR */
 .custom-scrollbar::-webkit-scrollbar {
   height: 8px;
