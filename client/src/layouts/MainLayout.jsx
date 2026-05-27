@@ -39,6 +39,9 @@ export default function MainLayout() {
 
   const location = useLocation();
 
+
+  const location = useLocation();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -143,6 +146,7 @@ export default function MainLayout() {
               }`}
             >
               <div className="w-12 h-12 rounded-2xl bg-greenbase-primary flex items-center justify-center text-white shadow-lg flex-shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center text-white shadow-lg flex-shrink-0">
                 < Waves size={24} />
               </div>
 

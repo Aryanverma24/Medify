@@ -52,7 +52,7 @@ const TopLibraries = () => {
             Top Libraries
           </h2>
 
-          <p className="text-gray font-dm text-left paragraph-secondary mt-1">
+          <p className="text-gray font-dm text-left paragraph-secondary mt-2">
             Explore healing collections curated for your journey
           </p>
         </div>
