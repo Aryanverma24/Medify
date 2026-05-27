@@ -11,6 +11,15 @@ body {
   font-family: 'SeasonMix', serif;
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 :root{
   --font-dm: "DM Sans", sans-serif;
   --font-noto-serif: "Noto Serif", serif;

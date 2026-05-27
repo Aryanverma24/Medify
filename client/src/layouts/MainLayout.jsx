@@ -142,13 +142,13 @@ export default function MainLayout() {
                 collapsed ? "justify-center w-full" : "gap-3"
               }`}
             >
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center text-white shadow-lg flex-shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-greenbase-primary flex items-center justify-center text-white shadow-lg flex-shrink-0">
                 < Waves size={24} />
               </div>
 
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">
-                    Medify
+                    Avyakt
                   </h1>
 
                   <p className="text-xs text-gray-500">
@@ -180,10 +180,9 @@ export default function MainLayout() {
                   hidden lg:flex
                   w-10 h-10
                   rounded-xl
-                  bg-emerald-50
                   items-center
                   justify-center
-                  hover:bg-emerald-100
+                  hover:bg-[#71AC61]
                   transition-all duration-300
                   flex-shrink-0
                 "
@@ -222,8 +221,8 @@ export default function MainLayout() {
                     group
                     ${
                       isActive
-                        ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg"
-                        : "text-gray-700 hover:bg-emerald-50"
+                        ? "bg-greenbase-primary text-white shadow-lg"
+                        : "text-gray-700 hover:bg-[#71AC61]"
                     }
                   `
                   }
@@ -246,7 +245,7 @@ export default function MainLayout() {
           
           {/* PREMIUM CARD */}
           {!collapsed && (
-            <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-[28px] p-5 text-white">
+            <div className="bg-greenbase-primary rounded-[28px] p-5 text-white">
               <h3 className="font-bold text-lg">
                 Medify Premium
               </h3>
@@ -256,7 +255,7 @@ export default function MainLayout() {
                 and emotional insights.
               </p>
 
-              <button className="mt-4 bg-white text-emerald-600 px-4 py-2 rounded-full text-sm font-semibold hover:scale-105 transition-all duration-300">
+              <button className="mt-4 bg-white text-[#71ac61] px-4 py-2 rounded-full text-sm font-semibold hover:scale-105 transition-all duration-300">
                 Upgrade
               </button>
             </div>
@@ -277,7 +276,7 @@ export default function MainLayout() {
                   ? "justify-center w-full"
                   : "gap-3"
               }
-              text-red-500 hover:text-red-600
+               hover:text-red-600
               transition-all duration-300
             `}
           >
@@ -303,12 +302,6 @@ export default function MainLayout() {
                 collapsed ? "justify-center w-full" : "gap-3"
               }`}
             >
-                <Link to="/" className="flex items-center gap-3">
-                  <h1 className="text-greenbase font-season-medium font-smbold heading-large">
-                    Avyakt Ehsaas
-                  </h1>
-
-                </Link>
             </div>
             
             {/* MOBILE MENU */}
@@ -376,7 +369,7 @@ export default function MainLayout() {
               transition-all duration-300
             "
           >
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-greenbase-primary text-white flex items-center justify-center">
               <User size={18} />
             </div>
 
@@ -403,74 +396,3 @@ export default function MainLayout() {
   );
 }
 
-
-  // <footer
-  //         className="
-  //           h-auto lg:h-[90px]
-  //           border-t border-emerald-100
-  //           bg-white/80 backdrop-blur-2xl
-  //           px-4 sm:px-6
-  //           py-4
-  //           flex flex-col lg:flex-row
-  //           items-center justify-between
-  //           gap-4
-  //         "
-  //       >
-          
-  //         {/* TRACK */}
-  //         <div className="flex items-center gap-4 w-full lg:w-auto">
-  //           <img
-  //             src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop"
-  //             alt="track"
-  //             className="w-14 h-14 rounded-2xl object-cover"
-  //           />
-
-  //           <div>
-  //             <h3 className="font-semibold text-gray-800">
-  //               Deep Meditation
-  //             </h3>
-
-  //             <p className="text-sm text-gray-500">
-  //               Relaxing Healing Sounds
-  //             </p>
-  //           </div>
-  //         </div>
-
-  //         {/* CONTROLS */}
-  //         <div className="flex items-center gap-4">
-  //           <button
-  //             onClick={() =>
-  //               setIsPlaying(!isPlaying)
-  //             }
-  //             className="
-  //               w-14 h-14
-  //               rounded-full
-  //               bg-gradient-to-r from-emerald-500 to-teal-500
-  //               text-white
-  //               flex items-center justify-center
-  //               shadow-lg
-  //               hover:scale-105
-  //               transition-all duration-300
-  //             "
-  //           >
-  //             {isPlaying ? (
-  //               <Pause fill="white" />
-  //             ) : (
-  //               <Play fill="white" />
-  //             )}
-  //           </button>
-  //         </div>
-
-  //         {/* PROGRESS */}
-  //         <div className="w-full lg:w-[300px]">
-  //           <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-  //             <div className="w-[45%] h-full bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full"></div>
-  //           </div>
-
-  //           <div className="flex justify-between text-xs text-gray-500 mt-2">
-  //             <span>1:42</span>
-
-  //             <span>5:24</span>
-  //           </div>
-  //         </div>
-  //       </footer>

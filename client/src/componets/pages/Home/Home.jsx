@@ -11,6 +11,7 @@ import HomeSection from "./HeroSection";
 import HealingProgressCard from "./HealingProgressCard";
 import MoodTrackerCard from "./MoodTrackerCard";
 
+
 import "swiper/css";
 import "swiper/css/navigation";
 import StreakCard from "./StreakCard";
@@ -18,6 +19,8 @@ import DailyRecommendationCard from "./DailyRecomendation";
 import ContinueHealingSlider from "./ContinueHealing";
 import RecommendedForYou from "./RecomendedForYou";
 import TopLibraries from "./TopLibraries";
+import TrendingHealingSession from "./TrendingHealingSession";
+import Footer from "./Footer";
 
 
 const Home = () => {
@@ -52,15 +55,15 @@ const Home = () => {
 
   return (
     <div className="space-y-8 pb-10 w-full">
-
-  <div className="flex justify-center flex-col md:flex-row gap-6 mb-8 w-full">
+    <div className="flex justify-center flex-col md:flex-row gap-6 mb-8 w-full">
   
-  <div className="relative min-h-screen flex flex-col gap-6 max-w-[72%]">
+  <div className="relative flex flex-col gap-6 flex-1 min-w-0">
 
     <HomeSection user={{ name: "John" }} />
     <ContinueHealingSlider  />  
     <RecommendedForYou />
     <TopLibraries />
+   
     </div>
 
 
@@ -71,55 +74,13 @@ const Home = () => {
     <StreakCard streak={5} />
     <DailyRecommendationCard />
 
-    <HealingProgressCard progress={78} />
+  
 
   </div>
 
 </div>
-
-       {/* <TrackRow 
-          title="Recommendation Journey"
-          data={quickTracks}
-          onTrackClick={handleTrackClick}
-       />
-
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">
-          Continue Journey
-        </h2>
-
-        <ContinueRow />
-      </div> */}
-
-      {/* SWIPER ROWS */}
-      {/* {libraries.slice(1).map(
-        (lib) =>
-          lib.subjects.length > 0 && (
-            <SwiperRow
-              key={lib.id}
-              title={lib.subjects[0].title}
-              data={lib.subjects[0].tracks}
-              onTrackClick={handleTrackClick}
-              className="mb-8"
-            />
-          )
-      )} */}
-
-      {/* QUICK TRACKS */}
-      {/* <TrackRow
-        title="Quick Start"
-        data={quickTracks}
-        onTrackClick={handleTrackClick}
-      />
- */}
-
-      {/* TRENDING */}
-      {/* <TrackRow
-        title="Trending Tracks"
-        data={trendingTracks}
-        onTrackClick={handleTrackClick}
-      /> */}
-
-      {/* <CategorySection /> */}
+ <TrendingHealingSession />
+  <Footer />
     </div>
   );
 };
