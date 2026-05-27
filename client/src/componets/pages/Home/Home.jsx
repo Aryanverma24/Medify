@@ -18,6 +18,10 @@ import DailyRecommendationCard from "./DailyRecomendation";
 import ContinueHealingSlider from "./ContinueHealing";
 import RecommendedForYou from "./RecomendedForYou";
 import TopLibraries from "./TopLibraries";
+import DailyQuoteCard from "./DailyQuoteCard";
+import TrackSlider from "./TrackSlider";
+import PopularWithAvyaktUsers from "./PopularWithAvyaktUsers";
+import UpcomingReminders from "./UpcomingReminders";
 
 
 const Home = () => {
@@ -38,7 +42,62 @@ const Home = () => {
   );
 
   const quickTracks = allTracks.slice(0, 10);
-  const trendingTracks = allTracks.slice(10, 20);
+
+ const trendingTracks = [
+  {
+    id: 1,
+    title: "Anxiety Relief",
+    imageUrl:
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop",
+    completedMinutes: 6,
+    totalMinutes: 10,
+  },
+
+  {
+    id: 2,
+    title: "Deep Sleep Meditation",
+    imageUrl:
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop",
+    completedMinutes: 8,
+    totalMinutes: 15,
+  },
+
+  {
+    id: 3,
+    title: "Morning Gratitude",
+    imageUrl:
+      "https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=1200&auto=format&fit=crop",
+    completedMinutes: 4,
+    totalMinutes: 10,
+  },
+
+  {
+    id: 4,
+    title: "Focus Booster",
+    imageUrl:
+      "https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1200&auto=format&fit=crop",
+    completedMinutes: 7,
+    totalMinutes: 12,
+  },
+
+  {
+    id: 5,
+    title: "Stress Relief Breathing",
+    imageUrl:
+      "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=1200&auto=format&fit=crop",
+    completedMinutes: 5,
+    totalMinutes: 11,
+  },
+
+  {
+    id: 6,
+    title: "Calm Mind Practice",
+    imageUrl:
+      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1200&auto=format&fit=crop",
+    completedMinutes: 9,
+    totalMinutes: 14,
+  },
+];
 
   // HANDLE CLICK
   const handleTrackClick = (track) => {
@@ -61,6 +120,14 @@ const Home = () => {
     <ContinueHealingSlider  />  
     <RecommendedForYou />
     <TopLibraries />
+    
+    <TrackSlider 
+    title="Trending Healing Tracks"
+    tracks={trendingTracks}
+    onTrackClick={handleTrackClick}
+     />
+
+     <PopularWithAvyaktUsers />
     </div>
 
 
@@ -71,7 +138,8 @@ const Home = () => {
     <StreakCard streak={5} />
     <DailyRecommendationCard />
 
-    <HealingProgressCard progress={78} />
+    <DailyQuoteCard />
+    <UpcomingReminders />
 
   </div>
 
