@@ -18,6 +18,8 @@ import DailyRecommendationCard from "./DailyRecomendation";
 import ContinueHealingSlider from "./ContinueHealing";
 import RecommendedForYou from "./RecomendedForYou";
 import TopLibraries from "./TopLibraries";
+import TrendingHealingSession from "./TrendingHealingSession";
+import Footer from "./Footer";
 import DailyQuoteCard from "./DailyQuoteCard";
 import TrackSlider from "./TrackSlider";
 import PopularWithAvyaktUsers from "./PopularWithAvyaktUsers";
@@ -42,6 +44,7 @@ const Home = () => {
   );
 
   const quickTracks = allTracks.slice(0, 10);
+  const trendingTracks = allTracks.slice(10, 20);
 
  const trendingTracks = [
   {
@@ -111,6 +114,9 @@ const Home = () => {
 
   return (
     <div className="space-y-8 pb-10 w-full">
+    <div className="flex justify-center flex-col md:flex-row gap-6 mb-8 w-full">
+  
+  <div className="relative flex flex-col gap-6 flex-1 min-w-0">
 
   <div className="flex justify-center flex-col md:flex-row gap-6 mb-8 w-full">
   
@@ -144,6 +150,8 @@ const Home = () => {
   </div>
 
 </div>
+ <TrendingHealingSession />
+  <Footer />
 
        {/* <TrackRow 
           title="Recommendation Journey"
