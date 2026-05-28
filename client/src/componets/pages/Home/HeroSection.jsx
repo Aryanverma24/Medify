@@ -1,41 +1,73 @@
-import { Play } from "lucide-react";
-import HeroImage from "../../../assets/Images/HomeHeroSection.png"
+import { Play, Crown } from "lucide-react";
 
-export default function HeroSection({ user }) {
+export default function HeroSection({
+  user,
+  image,
+  greeting = "Good Evening",
+  title,
+  subtitle,
+  description,
+
+  showBadge = false,
+  badgeText = "Premium Programs",
+
+  primaryButtonText = "Resume Last Session",
+  secondaryButtonText = "Explore Library",
+
+  onPrimaryClick,
+  onSecondaryClick,
+}) {
   return (
-    <section className="relative overflow-hidden rounded-[28px] min-h-[240px] shadow-sm">
-        <img    
-            src={HeroImage}
-            alt="Hero"
-            className="absolute w-full h-full object-cover"
-        />
+    <section className="relative min-h-[240px] overflow-hidden rounded-[28px] shadow-sm">
+      <img
+        src={image}
+        alt="Hero"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+
       <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent" />
 
-      <div className="relative z-10 p-8 max-w-xl text-white">
-        <h1 className="text-white heading-large text-left font-season-medium">
-          Good Evening, {user?.name || "User"} 
+      <div className="relative z-10 max-w-2xl p-8 text-white">
+        {showBadge && (
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/85 px-4 py-2 text-sm font-semibold text-[#9A6400] backdrop-blur-md">
+            <Crown size={16} fill="#E6A900" className="text-[#E6A900]" />
+            {badgeText}
+          </div>
+        )}
+
+        <h1 className="heading-large text-left font-season-medium text-white">
+          {title || `${greeting}, ${user?.name || "User"}`}
         </h1>
 
-        <p className="paragraph-secondary text-left mt-3 font-dm text-white/90">
-          Take a deep breath and let today go.
-        </p>
+        {subtitle && (
+          <p className="paragraph-secondary mt-3 text-left font-dm text-white/90">
+            {subtitle}
+          </p>
+        )}
 
-        <p className="mt-1 text-white/80 font-dm ">
-          You've come this far, and that matters.
-        </p>
+        {description && (
+          <p className="mt-1 font-dm text-white/80">
+            {description}
+          </p>
+        )}
 
-        <div className="flex gap-4 mt-8">
-          <button className="flex items-center gap-2 bg-[#71AC61]  w-full sm:w-[230px] text-white font-medium font-dm px-4 py-3 rounded-full hover:bg-[#4F7944] transition-all duration-300 cursor-pointer">
+        <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+          <button
+            onClick={onPrimaryClick}
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#71AC61] px-4 py-3 font-dm font-medium text-white transition-all duration-300 hover:bg-[#4F7944] sm:w-[230px]"
+          >
             <Play size={18} fill="white" />
-            Resume Last Session
+            {primaryButtonText}
           </button>
 
-          <button className="bg-transparent border w-full sm:w-[200px] text-greenbase-light font-medium font-dm px-4 py-3 cursor-pointer rounded-full hover:bg-[#4F7944] transition-all duration-300">
-            Explore Library
+          <button
+            onClick={onSecondaryClick}
+            className="w-full rounded-full border border-white/80 bg-transparent px-4 py-3 font-dm font-medium text-white transition-all duration-300 hover:bg-white/15 sm:w-[200px]"
+          >
+            {secondaryButtonText}
           </button>
         </div>
       </div>
-      
     </section>
   );
 }

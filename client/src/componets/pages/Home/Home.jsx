@@ -10,6 +10,7 @@ import CategorySection from "../../comman/CategorySection"
 import HomeSection from "./HeroSection";
 import HealingProgressCard from "./HealingProgressCard";
 import MoodTrackerCard from "./MoodTrackerCard";
+import HeroImage from "../../../assets/Images/HomeHeroSection.png";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -44,7 +45,6 @@ const Home = () => {
   );
 
   const quickTracks = allTracks.slice(0, 10);
-  const trendingTracks = allTracks.slice(10, 20);
 
  const trendingTracks = [
   {
@@ -114,88 +114,43 @@ const Home = () => {
 
   return (
     <div className="space-y-8 pb-10 w-full">
-    <div className="flex justify-center flex-col md:flex-row gap-6 mb-8 w-full">
-  
-  <div className="relative flex flex-col gap-6 flex-1 min-w-0">
+      <div className="flex justify-center flex-col md:flex-row gap-6 mb-8 w-full">
 
-  <div className="flex justify-center flex-col md:flex-row gap-6 mb-8 w-full">
-  
-  <div className="relative min-h-screen flex flex-col gap-6 max-w-[72%]">
+        <div className="relative flex flex-col gap-6 flex-1 min-w-0">
 
-    <HomeSection user={{ name: "John" }} />
-    <ContinueHealingSlider  />  
-    <RecommendedForYou />
-    <TopLibraries />
-    
-    <TrackSlider 
-    title="Trending Healing Tracks"
-    tracks={trendingTracks}
-    onTrackClick={handleTrackClick}
-     />
+          <HomeSection
+            user={{ name: "Akhil" }}
+            image={HeroImage}
+            subtitle="Take a deep breath and let today go."
+            description="You've come this far, and that matters."
+            primaryButtonText="Continue Meditation"
+            secondaryButtonText="Browse Sessions"
+            onPrimaryClick={() => console.log("Resume")}
+            onSecondaryClick={() => console.log("Explore")}
+          />
+          <ContinueHealingSlider />
+          <RecommendedForYou />
+          <TopLibraries />
 
-     <PopularWithAvyaktUsers />
-    </div>
+        </div>
 
 
-  <div className="h-full flex flex-wrap gap-4 max-w-[300px]">
+        <div className="h-full flex flex-wrap gap-4 max-w-[300px]">
 
-    <HealingProgressCard progress={78} />
-    <MoodTrackerCard />
-    <StreakCard streak={5} />
-    <DailyRecommendationCard />
+          <HealingProgressCard progress={78} />
+          <MoodTrackerCard />
+          <StreakCard streak={5} />
+          <DailyRecommendationCard />
 
     <DailyQuoteCard />
     <UpcomingReminders />
 
-  </div>
 
-</div>
- <TrendingHealingSession />
-  <Footer />
+        </div>
 
-       {/* <TrackRow 
-          title="Recommendation Journey"
-          data={quickTracks}
-          onTrackClick={handleTrackClick}
-       />
-
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">
-          Continue Journey
-        </h2>
-
-        <ContinueRow />
-      </div> */}
-
-      {/* SWIPER ROWS */}
-      {/* {libraries.slice(1).map(
-        (lib) =>
-          lib.subjects.length > 0 && (
-            <SwiperRow
-              key={lib.id}
-              title={lib.subjects[0].title}
-              data={lib.subjects[0].tracks}
-              onTrackClick={handleTrackClick}
-              className="mb-8"
-            />
-          )
-      )} */}
-
-      {/* QUICK TRACKS */}
-      {/* <TrackRow
-        title="Quick Start"
-        data={quickTracks}
-        onTrackClick={handleTrackClick}
-      />
- */}
-
-      {/* TRENDING */}
-      {/* <TrackRow
-        title="Trending Tracks"
-        data={trendingTracks}
-        onTrackClick={handleTrackClick}
-      /> */}
-
-      {/* <CategorySection /> */}
+      </div>
+      <TrendingHealingSession />
+      <Footer />
     </div>
   );
 };

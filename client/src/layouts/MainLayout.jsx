@@ -3,11 +3,9 @@ import {
   Outlet,
   useNavigate,
   useLocation,
-  Link
 } from "react-router-dom";
 
 import { useState, useEffect } from "react";
-
 
 import {
   Home,
@@ -21,27 +19,14 @@ import {
   X,
   MessageCircle,
   Waves,
-  Sun,
-  Moon
 } from "lucide-react";
 
 export default function MainLayout() {
   const [payload, setPayload] = useState({});
-
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const [sidebarOpen, setSidebarOpen] =
-    useState(false);
-
-  // NEW
-  const [collapsed, setCollapsed] =
-    useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   const location = useLocation();
-
-
-  const location = useLocation();
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,8 +39,6 @@ export default function MainLayout() {
         );
 
         setPayload(decoded);
-
-        console.log("User Payload:", decoded);
       } catch (error) {
         console.log("Invalid token");
       }
@@ -93,15 +76,15 @@ export default function MainLayout() {
       icon: Brain,
     },
     {
-      name: "Support",
-      path: "/support",
+      name: "Guided Programs",
+      path: "/guided-programs",
       icon: MessageCircle,
     },
   ];
 
   return (
     <div className="h-screen flex bg-gradient-to-br from-[#f5fff9] via-white to-[#eefcf4] overflow-hidden">
-      
+
       {/* MOBILE OVERLAY */}
       {sidebarOpen && (
         <div
@@ -115,17 +98,12 @@ export default function MainLayout() {
         className={`
           fixed lg:static top-0 left-0 z-50
           h-full
-          ${
-            collapsed
-              ? "w-[90px]"
-              : "w-[240px]"
-          }
+          ${collapsed ? "w-[90px]" : "w-[240px]"}
           bg-white/80 backdrop-blur-2xl
           border-r border-emerald-100
           p-5
           flex flex-col justify-between
           transition-all duration-300
-
           ${
             sidebarOpen
               ? "translate-x-0"
@@ -135,21 +113,22 @@ export default function MainLayout() {
       >
         {/* TOP */}
         <div>
-          
+
           {/* LOGO */}
           <div className="flex items-center justify-between">
-            
-            {!collapsed && (
+
             <div
               className={`flex items-center ${
                 collapsed ? "justify-center w-full" : "gap-3"
               }`}
             >
-              <div className="w-12 h-12 rounded-2xl bg-greenbase-primary flex items-center justify-center text-white shadow-lg flex-shrink-0">
+              {/* ICON */}
               <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center text-white shadow-lg flex-shrink-0">
-                < Waves size={24} />
+                <Waves size={24} />
               </div>
 
+              {/* TEXT */}
+              {!collapsed && (
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">
                     Avyakt
@@ -159,17 +138,15 @@ export default function MainLayout() {
                     Healing Platform
                   </p>
                 </div>
-            </div>
               )}
+            </div>
 
             {/* RIGHT BUTTONS */}
             <div className="flex items-center gap-2">
-              
+
               {/* MOBILE CLOSE */}
               <button
-                onClick={() =>
-                  setSidebarOpen(false)
-                }
+                onClick={() => setSidebarOpen(false)}
                 className="lg:hidden"
               >
                 <X />
@@ -177,9 +154,7 @@ export default function MainLayout() {
 
               {/* DESKTOP TOGGLE */}
               <button
-                onClick={() =>
-                  setCollapsed(!collapsed)
-                }
+                onClick={() => setCollapsed(!collapsed)}
                 className="
                   hidden lg:flex
                   w-10 h-10
@@ -188,7 +163,6 @@ export default function MainLayout() {
                   justify-center
                   hover:bg-[#71AC61]
                   transition-all duration-300
-                  flex-shrink-0
                 "
               >
                 {collapsed ? (
@@ -209,9 +183,7 @@ export default function MainLayout() {
                 <NavLink
                   key={item.path}
                   to={item.path}
-                  onClick={() =>
-                    setSidebarOpen(false)
-                  }
+                  onClick={() => setSidebarOpen(false)}
                   className={({ isActive }) =>
                     `
                     flex items-center
@@ -246,7 +218,7 @@ export default function MainLayout() {
 
         {/* BOTTOM */}
         <div className="space-y-4">
-          
+
           {/* PREMIUM CARD */}
           {!collapsed && (
             <div className="bg-greenbase-primary rounded-[28px] p-5 text-white">
@@ -269,9 +241,7 @@ export default function MainLayout() {
           <button
             onClick={() => {
               localStorage.removeItem("token");
-
-              window.location.href =
-                "/auth/login";
+              window.location.href = "/auth/login";
             }}
             className={`
               flex items-center
@@ -280,7 +250,7 @@ export default function MainLayout() {
                   ? "justify-center w-full"
                   : "gap-3"
               }
-               hover:text-red-600
+              hover:text-red-600
               transition-all duration-300
             `}
           >
@@ -293,26 +263,16 @@ export default function MainLayout() {
 
       {/* MAIN */}
       <main className="flex-1 flex flex-col overflow-hidden">
-        
+
         {/* TOPBAR */}
         <header className="h-[70px] px-4 border-b border-emerald-100 bg-white/70 backdrop-blur-xl flex items-center w-full justify-between">
-          
+
           {/* LEFT */}
           <div className="flex items-center gap-4">
 
-
-            <div
-              className={`flex items-center ${
-                collapsed ? "justify-center w-full" : "gap-3"
-              }`}
-            >
-            </div>
-            
             {/* MOBILE MENU */}
             <button
-              onClick={() =>
-                setSidebarOpen(true)
-              }
+              onClick={() => setSidebarOpen(true)}
               className="lg:hidden w-11 h-11 rounded-xl bg-gray-100 flex items-center justify-center"
             >
               <Menu />
@@ -321,8 +281,7 @@ export default function MainLayout() {
 
           {/* SEARCH */}
           <div className="hidden md:flex flex-1 max-w-xl mx-8">
-            {location.pathname ===
-            "/search" ? (
+            {location.pathname === "/search" ? (
               <input
                 type="text"
                 placeholder="Search audio, playlist and library..."
@@ -339,9 +298,7 @@ export default function MainLayout() {
               />
             ) : (
               <button
-                onClick={() =>
-                  navigate("/search")
-                }
+                onClick={() => navigate("/search")}
                 className="
                   w-full
                   px-5 py-3
@@ -354,8 +311,7 @@ export default function MainLayout() {
                   transition-all duration-300
                 "
               >
-                Search audio, playlist and
-                library...
+                Search audio, playlist and library...
               </button>
             )}
           </div>
@@ -393,10 +349,7 @@ export default function MainLayout() {
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
           <Outlet />
         </div>
-
-        {/* MUSIC PLAYER */}
       </main>
     </div>
   );
 }
-

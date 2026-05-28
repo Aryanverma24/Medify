@@ -17,6 +17,7 @@ import OAuthSuccess from '../componets/OAuthSuccess';
 import Onboarding from '../componets/pages/Onboarding';
 import Support from "../componets/chatBot/Support"
 import OnboardingRoute from '../componets/pages/OnboardingRoute';
+import Session from '../componets/pages/GuideProgram/Sessions';
 
 const AppRoutes = () => {
   return (
@@ -54,7 +55,7 @@ const AppRoutes = () => {
           {/* my profile page  */}
           <Route path="/my-profile" element={<UserProfilePage />} />
           <Route path='/emotional-analytics' element={<EmotionalAnalyticsDashboard />} />
-          <Route path="support" element={<Support />} />
+          <Route path="guided-programs" element={<Session />} />
           <Route
             path="/player/:id"
             element={<PlayerPage />}
